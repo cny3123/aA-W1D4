@@ -1,7 +1,7 @@
 require_relative "board"
 require 'colorize'
 
-puts "Only contractors write code this bad.".yellow
+
 
 class SudokuGame
   def self.from_file(filename)
@@ -9,8 +9,8 @@ class SudokuGame
     self.new(board)
   end
 
-  def initialize(board)
-    @board = [[]]
+  def initialize(board=from_file)
+    @board = board
   end
 
   def method_missing(method_name, *args)
@@ -59,12 +59,15 @@ class SudokuGame
   end
 
   def run
+
+
     play_turn until solved?
     board.render
     puts "Congratulations, you win!"
   end
 
   def solved?
+  
     board.solved?
   end
 
@@ -82,6 +85,9 @@ class SudokuGame
   private
   attr_reader :board
 end
-
+if __FILE__==$PROGRAM_NAME
 
 game = SudokuGame.from_file("puzzles/sudoku1.txt")
+game.run
+
+end
